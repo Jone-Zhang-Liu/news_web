@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--    <meta charset="GBK">-->
+    <title>testAjax</title>
+    <script src="js/jquery-1.8.3.min.js"></script>
+</head>
+<body>
+<form action="ajax" method="post">
+    邮箱<input type="text" name="email" /><span style="color: red"></span><br/>
+    用户名<input type="text"><br/>
+    密码<input type="password">
+</form>
+
+<script>
+    $(function () {
+        $("input").keyup(function () {
+            let email=$(this).val();
+            if(email == null || email== ""){
+                $("span").html("用户名不能为空");
+            }else{
+                // $.ajax({
+                //     "url":"ajax",
+                //     "data":"email="+email,
+                //     "type":"post",
+                //     "dataType":"text",
+                //     "success":function (result) {
+                //         if (result == "true"){
+                //             $("span").html("用户已存在");
+                //         }else {
+                //             $("span").html("用户名可以使用");
+                //         }
+                //     }
+                // })
+                $.post("ajax","email="+email,function (result) {
+                    if (result == "true"){
+                        $("span").html("用户已存在");
+                    }else {
+                        $("span").html("用户名可以使用");
+                    }
+                },"text")
+
+                //������Ӧ
+                // function  callback(){
+                //     if(xhr.readyState == 4 && xhr.status == 200){
+                //         var result=xhr.responseText;
+                //         if(result == "0"){
+                //             $("span").html("�������Ѿ�����");
+                //         }else{
+                //             $("span").html("���������ʹ��");
+                //         }
+                //     }
+                // }
+            }
+        })
+    })
+</script>
+</body>
+</html>
